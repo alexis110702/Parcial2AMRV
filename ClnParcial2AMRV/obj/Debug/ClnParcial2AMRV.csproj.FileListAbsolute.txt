@@ -1,0 +1,15 @@
+D:\SIS457\Parcial2AMRV\ClnParcial2AMRV\bin\Debug\ClnParcial2AMRV.dll.config
+D:\SIS457\Parcial2AMRV\ClnParcial2AMRV\bin\Debug\ClnParcial2AMRV.dll
+D:\SIS457\Parcial2AMRV\ClnParcial2AMRV\bin\Debug\ClnParcial2AMRV.pdb
+D:\SIS457\Parcial2AMRV\ClnParcial2AMRV\bin\Debug\CadParcial2AMRV.dll
+D:\SIS457\Parcial2AMRV\ClnParcial2AMRV\bin\Debug\EntityFramework.dll
+D:\SIS457\Parcial2AMRV\ClnParcial2AMRV\bin\Debug\EntityFramework.SqlServer.dll
+D:\SIS457\Parcial2AMRV\ClnParcial2AMRV\bin\Debug\CadParcial2AMRV.pdb
+D:\SIS457\Parcial2AMRV\ClnParcial2AMRV\bin\Debug\CadParcial2AMRV.dll.config
+D:\SIS457\Parcial2AMRV\ClnParcial2AMRV\bin\Debug\EntityFramework.xml
+D:\SIS457\Parcial2AMRV\ClnParcial2AMRV\bin\Debug\EntityFramework.SqlServer.xml
+D:\SIS457\Parcial2AMRV\ClnParcial2AMRV\obj\Debug\ClnParcial2AMRV.csproj.AssemblyReference.cache
+D:\SIS457\Parcial2AMRV\ClnParcial2AMRV\obj\Debug\ClnParcial2AMRV.csproj.CoreCompileInputs.cache
+D:\SIS457\Parcial2AMRV\ClnParcial2AMRV\obj\Debug\ClnParci.C2BAFAB1.Up2Date
+D:\SIS457\Parcial2AMRV\ClnParcial2AMRV\obj\Debug\ClnParcial2AMRV.dll
+D:\SIS457\Parcial2AMRV\ClnParcial2AMRV\obj\Debug\ClnParcial2AMRV.pdb
