@@ -16,3 +16,5 @@ D:\SIS457\Parcial2AMRV\CpParcial2AMRV\obj\Debug\CpParcial2AMRV.csproj.CoreCompil
 D:\SIS457\Parcial2AMRV\CpParcial2AMRV\obj\Debug\CpParcia.EC71D98E.Up2Date
 D:\SIS457\Parcial2AMRV\CpParcial2AMRV\obj\Debug\CpParcial2AMRV.exe
 D:\SIS457\Parcial2AMRV\CpParcial2AMRV\obj\Debug\CpParcial2AMRV.pdb
+D:\SIS457\Parcial2AMRV\CpParcial2AMRV\obj\Debug\CpParcial2AMRV.FrmPrograma.resources
+D:\SIS457\Parcial2AMRV\CpParcial2AMRV\obj\Debug\CpParcial2AMRV.csproj.GenerateResource.cache

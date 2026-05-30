@@ -23,11 +23,12 @@ namespace ClnParcial2AMRV
                 var existente = context.Programa.Find(programa.id);
                 if (existente != null)
                 {
-                    existente.idCanal      = programa.idCanal;
-                    existente.titulo       = programa.titulo;
-                    existente.descripcion  = programa.descripcion;
-                    existente.duracion     = programa.duracion;
-                    existente.productor    = programa.productor;
+                    existente.idCanal = programa.idCanal;
+                    existente.idCategoriaPrograma = programa.idCategoriaPrograma;
+                    existente.titulo = programa.titulo;
+                    existente.descripcion = programa.descripcion;
+                    existente.duracion = programa.duracion;
+                    existente.productor = programa.productor;
                     existente.fechaEstreno = programa.fechaEstreno;
                     return context.SaveChanges();
                 }
@@ -42,7 +43,7 @@ namespace ClnParcial2AMRV
                 var existente = context.Programa.Find(id);
                 if (existente != null)
                 {
-                    existente.estado = -1; // Eliminado lógicamente
+                    existente.estado = -1;
                     return context.SaveChanges();
                 }
                 return 0;

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Parcial2AMRVModelStoreContainer" CdmEntityContainer="Parcial2AMRVEntities1">
+  <EntityContainerMapping StorageEntityContainer="Parcial2AMRVModelStoreContainer" CdmEntityContainer="Parcial2AMRVEntities">
     <EntitySetMapping Name="Canal">
       <EntityTypeMapping TypeName="Parcial2AMRVModel.Canal">
         <MappingFragment StoreEntitySet="Canal">
@@ -11,11 +11,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CategoriaPrograma">
+      <EntityTypeMapping TypeName="Parcial2AMRVModel.CategoriaPrograma">
+        <MappingFragment StoreEntitySet="CategoriaPrograma">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Programa">
       <EntityTypeMapping TypeName="Parcial2AMRVModel.Programa">
         <MappingFragment StoreEntitySet="Programa">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="idCanal" ColumnName="idCanal" />
+          <ScalarProperty Name="idCategoriaPrograma" ColumnName="idCategoriaPrograma" />
           <ScalarProperty Name="titulo" ColumnName="titulo" />
           <ScalarProperty Name="descripcion" ColumnName="descripcion" />
           <ScalarProperty Name="duracion" ColumnName="duracion" />
@@ -30,9 +40,11 @@
         <ComplexTypeMapping TypeName="Parcial2AMRVModel.paProgramaListar_Result">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="idCanal" ColumnName="idCanal" />
+          <ScalarProperty Name="idCategoriaPrograma" ColumnName="idCategoriaPrograma" />
           <ScalarProperty Name="titulo" ColumnName="titulo" />
           <ScalarProperty Name="descripcion" ColumnName="descripcion" />
           <ScalarProperty Name="canal" ColumnName="canal" />
+          <ScalarProperty Name="categoria" ColumnName="categoria" />
           <ScalarProperty Name="duracion" ColumnName="duracion" />
           <ScalarProperty Name="productor" ColumnName="productor" />
           <ScalarProperty Name="fechaEstreno" ColumnName="fechaEstreno" />

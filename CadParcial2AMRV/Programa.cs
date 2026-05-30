@@ -16,6 +16,7 @@ namespace CadParcial2AMRV
     {
         public int id { get; set; }
         public int idCanal { get; set; }
+        public int idCategoriaPrograma { get; set; }
         public string titulo { get; set; }
         public string descripcion { get; set; }
         public int duracion { get; set; }
@@ -24,5 +25,6 @@ namespace CadParcial2AMRV
         public short estado { get; set; }
     
         public virtual Canal Canal { get; set; }
+        public virtual CategoriaPrograma CategoriaPrograma { get; set; }
     }
 }

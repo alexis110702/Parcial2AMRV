@@ -1,6 +1,3 @@
--- DDL - Parcial2AMRV
--- Base de datos para Canal de Television
--- Iniciales: AMRV
 
 CREATE DATABASE Parcial2AMRV;
 GO
@@ -40,7 +37,6 @@ CREATE TABLE Programa (
   CONSTRAINT fk_Programa_Canal FOREIGN KEY (idCanal) REFERENCES Canal(id)
 );
 
--- Procedimiento almacenado para listar Programas
 GO
 DROP PROC IF EXISTS paProgramaListar;
 GO
@@ -56,7 +52,7 @@ AS
   ORDER BY p.titulo;
 GO
 
--- DML - Datos de prueba
+
 INSERT INTO Canal (nombre, frecuencia, estado)
 VALUES ('Canal 1 Bolivia', '100.5 FM', 1),
        ('Red Uno',         '102.3 FM', 1),
@@ -73,7 +69,108 @@ VALUES (1, 'Noticias Centrales',
            'Transmision de partidos de futbol y otros deportes',
            90, 'Carlos Mamani', '2024-05-20', 1);
 
+CREATE TABLE CategoriaPrograma (
+id          INT IDENTITY(1,1) PRIMARY KEY,
+nombre      VARCHAR(30) NOT NULL,
+estado      SMALLINT    NOT NULL DEFAULT 1
+);
+ALTER TABLE Programa
+  ADD idCategoriaPrograma INT NOT NULL DEFAULT 1;
+GO
+
+ALTER TABLE Programa
+  ADD CONSTRAINT fk_Programa_CategoriaPrograma
+  FOREIGN KEY (idCategoriaPrograma) REFERENCES CategoriaPrograma(id);
+GO
+
+INSERT INTO CategoriaPrograma (nombre, estado) VALUES
+  ('Informativo',     1),
+  ('Entretenimiento', 1),
+  ('Educativo',       1),
+  ('Deportivo',       1),
+  ('Cultural',        1),
+  ('Infantil',        1);
+GO
+
+UPDATE Programa SET idCategoriaPrograma = 1 WHERE titulo = 'Noticias Centrales';
+UPDATE Programa SET idCategoriaPrograma = 2 WHERE titulo = 'Cine en Casa';
+UPDATE Programa SET idCategoriaPrograma = 4 WHERE titulo = 'Deportes en Vivo';
+GO
+
+DROP PROC IF EXISTS paProgramaListar;
+GO
+CREATE PROC paProgramaListar @parametro VARCHAR(100)
+AS
+  SELECT p.id, p.idCanal, p.idCategoriaPrograma,
+         p.titulo, p.descripcion,
+         c.nombre  AS canal,
+         cp.nombre AS categoria,
+         p.duracion, p.productor, p.fechaEstreno, p.estado
+  FROM Programa p
+  INNER JOIN Canal            c  ON c.id  = p.idCanal
+  INNER JOIN CategoriaPrograma cp ON cp.id = p.idCategoriaPrograma
+  WHERE p.estado = 1
+    AND p.titulo + p.descripcion + c.nombre LIKE '%' + REPLACE(@parametro,' ','%') + '%'
+  ORDER BY p.titulo;
+GO
+
+SELECT * FROM CategoriaPrograma;
+EXEC paProgramaListar '';
+
 SELECT * FROM Canal;
 SELECT * FROM Programa;
 EXEC paProgramaListar '';
 EXEC paProgramaListar 'noticias';
+
+USE Parcial2AMRV
+GO
+-- NUEVA TABLA
+CREATE TABLE CategoriaPrograma (
+  id     INT IDENTITY(1,1) PRIMARY KEY,
+  nombre VARCHAR(30) NOT NULL,
+  estado SMALLINT    NOT NULL DEFAULT 1
+);
+GO
+
+ALTER TABLE Programa
+  ADD idCategoriaPrograma INT NOT NULL DEFAULT 1;
+GO
+
+ALTER TABLE Programa
+  ADD CONSTRAINT fk_Programa_CategoriaPrograma
+  FOREIGN KEY (idCategoriaPrograma) REFERENCES CategoriaPrograma(id);
+GO
+
+INSERT INTO CategoriaPrograma (nombre, estado) VALUES
+  ('Informativo',     1),
+  ('Entretenimiento', 1),
+  ('Educativo',       1),
+  ('Deportivo',       1),
+  ('Cultural',        1),
+  ('Infantil',        1);
+GO
+
+UPDATE Programa SET idCategoriaPrograma = 1 WHERE titulo = 'Noticias Centrales';
+UPDATE Programa SET idCategoriaPrograma = 2 WHERE titulo = 'Cine en Casa';
+UPDATE Programa SET idCategoriaPrograma = 4 WHERE titulo = 'Deportes en Vivo';
+GO
+
+DROP PROC IF EXISTS paProgramaListar;
+GO
+CREATE PROC paProgramaListar @parametro VARCHAR(100)
+AS
+  SELECT p.id, p.idCanal, p.idCategoriaPrograma,
+         p.titulo, p.descripcion,
+         c.nombre  AS canal,
+         cp.nombre AS categoria,
+         p.duracion, p.productor, p.fechaEstreno, p.estado
+  FROM Programa p
+  INNER JOIN Canal             c  ON c.id  = p.idCanal
+  INNER JOIN CategoriaPrograma cp ON cp.id = p.idCategoriaPrograma
+  WHERE p.estado = 1
+    AND p.titulo + p.descripcion + c.nombre LIKE '%' + REPLACE(@parametro,' ','%') + '%'
+  ORDER BY p.titulo;
+GO
+
+SELECT * FROM CategoriaPrograma;
+EXEC paProgramaListar '';

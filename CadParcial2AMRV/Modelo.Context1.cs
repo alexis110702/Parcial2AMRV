@@ -15,10 +15,10 @@ namespace CadParcial2AMRV
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class Parcial2AMRVEntities1 : DbContext
+    public partial class Parcial2AMRVEntities : DbContext
     {
-        public Parcial2AMRVEntities1()
-            : base("name=Parcial2AMRVEntities1")
+        public Parcial2AMRVEntities()
+            : base("name=Parcial2AMRVEntities")
         {
         }
     
@@ -28,6 +28,7 @@ namespace CadParcial2AMRV
         }
     
         public virtual DbSet<Canal> Canal { get; set; }
+        public virtual DbSet<CategoriaPrograma> CategoriaPrograma { get; set; }
         public virtual DbSet<Programa> Programa { get; set; }
     
         public virtual ObjectResult<paProgramaListar_Result> paProgramaListar(string parametro)

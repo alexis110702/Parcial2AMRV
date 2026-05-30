@@ -44,12 +44,10 @@
     <Compile Include="Canal.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Modelo.Context.cs" />
-    <Compile Include="Modelo.Context1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Modelo.Context.tt</DependentUpon>
+    <Compile Include="CategoriaPrograma.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Modelo.Context.cs" />
     <Compile Include="Modelo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -15,48 +15,54 @@ namespace CpParcial2AMRV
             InitializeComponent();
         }
 
-        // ─── Listado ──────────────────────────────────────────────────────────
-
         private void listar()
         {
             var lista = ProgramaCln.listarPa(txtParametro.Text);
             dgvLista.DataSource = lista;
 
-            // Columnas ocultas
-            dgvLista.Columns["id"].Visible      = false;
-            dgvLista.Columns["idCanal"].Visible  = false;
-            dgvLista.Columns["estado"].Visible   = false;
+            dgvLista.Columns["id"].Visible = false;
+            dgvLista.Columns["idCanal"].Visible = false;
+            dgvLista.Columns["idCategoriaPrograma"].Visible = false;
+            dgvLista.Columns["estado"].Visible = false;
 
-            // Encabezados amigables
-            dgvLista.Columns["titulo"].HeaderText       = "Título";
-            dgvLista.Columns["descripcion"].HeaderText  = "Descripción";
-            dgvLista.Columns["canal"].HeaderText        = "Canal";
-            dgvLista.Columns["duracion"].HeaderText     = "Duración (min)";
-            dgvLista.Columns["productor"].HeaderText    = "Productor";
+            dgvLista.Columns["titulo"].HeaderText = "Título";
+            dgvLista.Columns["descripcion"].HeaderText = "Descripción";
+            dgvLista.Columns["canal"].HeaderText = "Canal";
+            dgvLista.Columns["categoria"].HeaderText = "Categoría";
+            dgvLista.Columns["duracion"].HeaderText = "Duración (min)";
+            dgvLista.Columns["productor"].HeaderText = "Productor";
             dgvLista.Columns["fechaEstreno"].HeaderText = "Fecha de Estreno";
 
             if (lista.Count > 0)
                 dgvLista.CurrentCell = dgvLista.Rows[0].Cells["titulo"];
 
-            btnEditar.Enabled  = lista.Count > 0;
+            btnEditar.Enabled = lista.Count > 0;
             btnEliminar.Enabled = lista.Count > 0;
         }
 
         private void cargarCanal()
         {
-            cbxCanal.DataSource    = CanalCln.listar();
-            cbxCanal.ValueMember   = "id";
+            cbxCanal.DataSource = CanalCln.listar();
+            cbxCanal.ValueMember = "id";
             cbxCanal.DisplayMember = "nombre";
             cbxCanal.SelectedIndex = -1;
         }
 
-        // ─── Eventos del formulario ───────────────────────────────────────────
+        private void cargarCategoria()
+        {
+            cbxCategoria.DataSource = CategoriaProgramaCln.listar();
+            cbxCategoria.ValueMember = "id";
+            cbxCategoria.DisplayMember = "nombre";
+            cbxCategoria.SelectedIndex = -1;
+        }
 
         private void FrmPrograma_Load(object sender, EventArgs e)
         {
             Size = new Size(1000, 360);
+            pnlFormulario.Visible = false;
             listar();
             cargarCanal();
+            cargarCategoria();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e) => listar();
@@ -66,48 +72,44 @@ namespace CpParcial2AMRV
             if (e.KeyChar == (char)Keys.Enter) listar();
         }
 
-        // ─── Nuevo ────────────────────────────────────────────────────────────
-
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             esNuevo = true;
             pnlAcciones.Enabled = false;
-            Size = new Size(1000, 500);
+            pnlFormulario.Visible = true;
+            Size = new Size(1000, 530);
             limpiar();
             txtTitulo.Focus();
         }
-
-        // ─── Editar ───────────────────────────────────────────────────────────
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
             esNuevo = false;
             pnlAcciones.Enabled = false;
-            Size = new Size(1000, 500);
+            pnlFormulario.Visible = true;
+            Size = new Size(1000, 530);
             resetearErrores();
 
             int id = (int)dgvLista.CurrentRow.Cells["id"].Value;
             var programa = ProgramaCln.obtenerUno(id);
 
-            txtTitulo.Text             = programa.titulo;
-            txtDescripcion.Text        = programa.descripcion;
-            cbxCanal.SelectedValue     = programa.idCanal;
-            nudDuracion.Value          = programa.duracion;
-            txtProductor.Text          = programa.productor;
-            dtpFechaEstreno.Value      = programa.fechaEstreno;
+            txtTitulo.Text = programa.titulo;
+            txtDescripcion.Text = programa.descripcion;
+            cbxCanal.SelectedValue = programa.idCanal;
+            cbxCategoria.SelectedValue = programa.idCategoriaPrograma;
+            nudDuracion.Value = programa.duracion;
+            txtProductor.Text = programa.productor;
+            dtpFechaEstreno.Value = programa.fechaEstreno;
 
             txtTitulo.Focus();
         }
 
-        // ─── Cancelar ─────────────────────────────────────────────────────────
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             pnlAcciones.Enabled = true;
+            pnlFormulario.Visible = false;
             Size = new Size(1000, 360);
         }
-
-        // ─── Guardar ──────────────────────────────────────────────────────────
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -115,11 +117,12 @@ namespace CpParcial2AMRV
 
             var programa = new Programa()
             {
-                idCanal      = (int)cbxCanal.SelectedValue,
-                titulo       = txtTitulo.Text.Trim(),
-                descripcion  = txtDescripcion.Text.Trim(),
-                duracion     = (int)nudDuracion.Value,
-                productor    = txtProductor.Text.Trim(),
+                idCanal = (int)cbxCanal.SelectedValue,
+                idCategoriaPrograma = (int)cbxCategoria.SelectedValue,
+                titulo = txtTitulo.Text.Trim(),
+                descripcion = txtDescripcion.Text.Trim(),
+                duracion = (int)nudDuracion.Value,
+                productor = txtProductor.Text.Trim(),
                 fechaEstreno = dtpFechaEstreno.Value.Date
             };
 
@@ -141,11 +144,9 @@ namespace CpParcial2AMRV
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        // ─── Eliminar (lógico) ────────────────────────────────────────────────
-
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            int id     = (int)dgvLista.CurrentRow.Cells["id"].Value;
+            int id = (int)dgvLista.CurrentRow.Cells["id"].Value;
             string titulo = dgvLista.CurrentRow.Cells["titulo"].Value.ToString();
 
             DialogResult dialog = MessageBox.Show(
@@ -163,20 +164,17 @@ namespace CpParcial2AMRV
             }
         }
 
-        // ─── Cerrar ───────────────────────────────────────────────────────────
-
         private void btnCerrar_Click(object sender, EventArgs e) => Close();
-
-        // ─── Helpers ──────────────────────────────────────────────────────────
 
         private void limpiar()
         {
             txtTitulo.Clear();
             txtDescripcion.Clear();
             cbxCanal.SelectedIndex = -1;
-            nudDuracion.Value      = 1;
+            cbxCategoria.SelectedIndex = -1;
+            nudDuracion.Value = 1;
             txtProductor.Clear();
-            dtpFechaEstreno.Value  = DateTime.Today;
+            dtpFechaEstreno.Value = DateTime.Today;
             resetearErrores();
         }
 
@@ -185,6 +183,7 @@ namespace CpParcial2AMRV
             erpTitulo.Clear();
             erpDescripcion.Clear();
             erpCanal.Clear();
+            erpCategoria.Clear();
             erpDuracion.Clear();
             erpProductor.Clear();
         }
@@ -207,6 +206,11 @@ namespace CpParcial2AMRV
             if (cbxCanal.SelectedIndex == -1)
             {
                 erpCanal.SetError(cbxCanal, "El Canal es obligatorio");
+                esValido = false;
+            }
+            if (cbxCategoria.SelectedIndex == -1)
+            {
+                erpCategoria.SetError(cbxCategoria, "La Categoría es obligatoria");
                 esValido = false;
             }
             if (nudDuracion.Value <= 0)

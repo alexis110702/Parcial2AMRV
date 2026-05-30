@@ -1,4 +1,3 @@
-
 namespace CadParcial2AMRV
 {
     using System.Data.Entity;
@@ -18,7 +17,8 @@ namespace CadParcial2AMRV
             throw new UnintentionalCodeFirstException();
         }
 
-        public virtual DbSet<Canal>   Canal   { get; set; }
+        public virtual DbSet<Canal> Canal { get; set; }
+        public virtual DbSet<CategoriaPrograma> CategoriaPrograma { get; set; }
         public virtual DbSet<Programa> Programa { get; set; }
 
         public virtual ObjectResult<paProgramaListar_Result> paProgramaListar(string parametro)

@@ -5,9 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="29021af8a3974d7c9eeb948ce76b9cc8" Name="Diagram1">
-        <EntityTypeShape EntityType="Parcial2AMRVModel.Canal" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Parcial2AMRVModel.Canal" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Parcial2AMRVModel.Programa" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="Parcial2AMRVModel.fk_Programa_Canal" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Parcial2AMRVModel.CategoriaPrograma" Width="1.5" PointX="5.375" PointY="0.875" />
+        <AssociationConnector Association="Parcial2AMRVModel.fk_Programa_CategoriaPrograma" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
